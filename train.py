@@ -62,7 +62,7 @@ def main(config_path, use_wandb=False, sweep_dict=None):
     ##결과: ModelModuleClass = XrayModelModule
 
     # 모델 설정
-    model = ModelModuleClass(config) #XrayModelModule에  model_name, loss,scheduler, optimizer, 이렇게 4개 다 있는거임.
+    model = ModelModuleClass(config) #XrayModelModule에  config_modelname,num_clasee,pretrained,들어감.
     # print("model을 print해보겠습니다 얍!: ",model)
     
 
