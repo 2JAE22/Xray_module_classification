@@ -1,0 +1,52 @@
+data_module: "src.data.custom_datamodules.sketch_datamodule.SketchDataModule"
+model_module: "src.plmodules.sketch_CNN_module.SketchModelModule_CNN"
+
+data_config_path: "configs/data_configs/sketch_config.yaml"
+augmentation_config_path: "configs/augmentation_configs/sketch_augmentation.yaml"
+
+sweep_path: "configs/train_configs/train/sweep.yaml"
+use_sweep: False
+
+model:
+  model_name: "convnext_large_mlp.clip_laion2b_augreg_ft_in1k"
+  num_classes: 500
+  pretrained: True
+
+optimizer:
+  name: Adam
+  params:
+    lr: 5e-4
+
+scheduler:
+  name: CosineAnnealingLR
+  params:
+    T_max: 10
+    eta_min: 1e-6
+
+trainer:
+  max_epochs: 1
+  accelerator: gpu
+  devices: 4
+  default_root_dir: "output" #output 폴더에 추가.
+  strategy : "ddp" 
+
+callbacks:
+  model_checkpoint:
+    monitor: val_acc
+    save_top_k: 3
+    mode: max
+  early_stopping:
+    monitor: val_acc
+    patience: 10
+    mode: max
+
+wandb_name: "convnext_large_test_yes_op_sch"
+
+#GradCAM 설정 추가
+visualize_gradcam : True
+gradcam:
+  target_layer : model.model.stages.3.blocks.2.conv_dw #모델의 마지막 어턴션 (본인 모델의 CAM 을 보고 싶다면 마지막 레이어를 적어주면됨.)
+  image_index : 0
+  save_dir : "output/GradCam/gradcam_result.png"
+  model_name : convnext
+seed: 42  # 시드 값 추가
