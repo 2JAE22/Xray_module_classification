@@ -82,14 +82,16 @@ def main(config_path, use_wandb=False, sweep_dict=None):
         patience=config.callbacks.early_stopping.patience,
         mode=config.callbacks.early_stopping.mode,
     )
-    # **Detect Anomaly 설정**
-    torch.autograd.set_detect_anomaly(True)
+    # # **Detect Anomaly 설정**
+    # torch.autograd.set_detect_anomaly(True)
+    
     # 트레이너 설정 -> 이렇게 하면 원래 progressbar 가 나와야 하는데 안 나오는거 보니까 지금 뭔가가 잘못됨..
     trainer = pl.Trainer(
         **config.trainer,
         callbacks=[checkpoint_callback, early_stopping_callback],
         logger=logger,
         precision='16-mixed',
+        # strategy=pl.strategies.DDPStrategy(process_group_backend='gloo')
                 
     )
     # print("Start Training!!")
@@ -113,7 +115,7 @@ if __name__ == "__main__":
     
     #required=True 하면 해당 인자가 반드시 들어가야 함을 의미.
     parser.add_argument(
-        "--config", type=str, required=True, help="Path to the config file" 
+        "--config", type=str, required=False,default="configs/train_configs/train/config.yaml" ,help="Path to the config file" 
     )
 
     # action은 특정플래그가 존재하는지 여부체크. 없으면 False,있으면 True 로 store_true가 결정해줌.
