@@ -32,7 +32,7 @@ class XrayDataModule(BaseDataModule):
         else:
             train_transforms = A.Compose(
                 [
-                    A.Resize(height=224, width=224),
+                    A.Resize(height=384, width=384),
                     # A.ShiftScaleRotate(shift_limit=(-0.25, 0.25), scale_limit=0, rotate_limit=0, border_mode=3, p=0.5),
                     # #A.ShiftScaleRotate(shift_limit=0, scale_limit=0, rotate_limit=(-30,30), border_mode=3, p=0.5),
                     # A.GaussianBlur (blur_limit=(3,7), sigma_limit=30, p=0.5),

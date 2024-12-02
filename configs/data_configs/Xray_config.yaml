@@ -9,5 +9,5 @@ data:
   train_val_split: 0.8
   val_test_split: 0.7
   batch_size: 16
-  num_workers: 16
+  num_workers: 32
   pin_memory: true

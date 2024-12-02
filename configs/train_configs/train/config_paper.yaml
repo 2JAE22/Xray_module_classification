@@ -1,6 +1,5 @@
 data_module: "src.data.custom_datamodules.Xray_datamodule.XrayDataModule"
-model_module: "src.plmodules.XrayModelModule.XrayModelModule"
-
+model_module: "src.plmodules.XrayModel2.XrayModel2"
 
 data_config_path: "configs/data_configs/Xray_config.yaml"
 augmentation_config_path: "configs/augmentation_configs/Xray_augmentation.yaml"
@@ -12,7 +11,9 @@ model:
   model_name: "convnext_xxlarge"
   num_classes: 474 ##473(max_num) +1
   pretrained: True
-
+  num_classes_model1: 242  # 일반 물품
+  num_classes_model2: 136  # 위해 물품
+  num_classes_model3: 19   # 정보 저장 매체
 
 optimizer:
   name: Adam
@@ -26,11 +27,11 @@ scheduler:
     gamma: 0.7
 
 trainer:
-  max_epochs: 10
+  max_epochs: 20
   accelerator: gpu
   devices: [5,6,7,8,9]  # Specify the exact GPU indices 
   default_root_dir: "output" #output 폴더에 결과 자동으로 추가.
-  strategy : "ddp" 
+  # strategy : "ddp" 
 
 
 callbacks:
@@ -40,10 +41,10 @@ callbacks:
     mode: max
   early_stopping:
     monitor: val_acc
-    patience: 20
+    patience: 10
     mode: max
 
-wandb_name: "convnext_xxlarge2"
+wandb_name: "convnext_router1"
 
 
 

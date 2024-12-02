@@ -11,7 +11,7 @@ from omegaconf import OmegaConf
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 from torch.utils.data import DataLoader
-
+from pytorch_lightning.strategies import DDPStrategy
 warnings.filterwarnings("ignore")
 
 
@@ -91,7 +91,8 @@ def main(config_path, use_wandb=False, sweep_dict=None):
         callbacks=[checkpoint_callback, early_stopping_callback],
         logger=logger,
         precision='16-mixed',
-        # strategy=pl.strategies.DDPStrategy(process_group_backend='gloo')
+        strategy=DDPStrategy(find_unused_parameters=True),  # 미사용 파라미터 허용
+
                 
     )
     # print("Start Training!!")

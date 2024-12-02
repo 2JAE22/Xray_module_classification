@@ -20,9 +20,9 @@ class XrayModelModule(pl.LightningModule):
             model_name=config.model.model_name, 
             num_classes=config.model.num_classes,
             pretrained=config.model.pretrained,
-            drop_head_prob=self.hparams.get('drop_head_prob', 0.3),
-            drop_path_prob=self.hparams.get('drop_path_prob', 0.3),
-            attn_drop_prob=self.hparams.get('attn_drop_prob', 0.1)
+            drop_head_prob=self.hparams.get('drop_head_prob', 0.3), #헤드부분의 드랍아웃
+            drop_path_prob=self.hparams.get('drop_path_prob', 0.3), #경로 드랍아웃
+            attn_drop_prob=self.hparams.get('attn_drop_prob', 0.1) # 어텐션 드랍아웃
         )
         # print(self.model) #모델 너무 큼ㅇㅅ
         self.precision = MulticlassPrecision(num_classes=config.model.num_classes, average="macro")
