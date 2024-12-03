@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from custom.softmax import gumbel_softmax
-from custom.basemodel import BaseModel
+from src.custom.softmax import gumbel_softmax
+from src.custom.basemodel import BaseModel
 
 class Router(nn.Module):
     def __init__(self, num_classes=474, backbone_output_size=768, shared_model=True):
