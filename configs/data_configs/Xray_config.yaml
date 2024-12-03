@@ -8,6 +8,6 @@ data:
   test_df_path: /home/vilab/paper/Xray_module_classification/data/train.csv
   train_val_split: 0.8
   val_test_split: 0.7
-  batch_size: 16
+  batch_size: 64
   num_workers: 32
   pin_memory: true
