@@ -29,7 +29,7 @@ scheduler:
     gamma: 0.7
 
 trainer:
-  max_epochs: 20
+  max_epochs: 100
   accelerator: gpu
   devices: [6,7,8,9]  # Specify the exact GPU indices 
   default_root_dir: "output" #output 폴더에 결과 자동으로 추가.
@@ -42,7 +42,7 @@ callbacks:
     mode: max
   early_stopping:
     monitor: val_acc
-    patience: 10
+    patience: 20
     mode: max
 
 wandb_name: "moe_experiment"
