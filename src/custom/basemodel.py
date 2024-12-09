@@ -21,7 +21,7 @@ class BaseModel(nn.Module):
 
 
 class Model1(BaseModel):
-    def __init__(self, input_features):
+    def n__init__(self, input_features):
         super(Model1, self).__init__(input_features, output_features=474, dropout_rate=0.1)
 
 

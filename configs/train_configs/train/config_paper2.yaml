@@ -1,0 +1,56 @@
+data_module: "src.data.custom_datamodules.Xray_datamodule.XrayDataModule"
+model_module: "src.plmodules.XrayModel3.XrayModel3"
+
+data_config_path: "configs/data_configs/Xray_config.yaml"
+augmentation_config_path: "configs/augmentation_configs/Xray_augmentation.yaml"
+
+sweep_path: "configs/train_configs/train/sweep.yaml"
+use_sweep: False #sweep 사용시 True 로.(default 는 False)
+
+model:
+  model_name: "moe"  # MoE 모델 사용
+  input_size: 1024  # 입력 크기 설정
+  output_size: 474  # 출력 클래스 수
+  num_experts: 10  # 전문가 수
+  hidden_size: 512  # 전문가의 은닉층 크기
+  noisy_gating: True  # 노이즈 게이팅 사용 여부
+  k: 4  # 각 배치 요소에 사용할 전문가 수
+  pretrained: True
+
+optimizer:
+  name: Adam
+  params:
+    lr: 2e-4
+
+scheduler:
+  name: StepLR
+  params:
+    step_size: 1
+    gamma: 0.7
+
+trainer:
+  max_epochs: 20
+  accelerator: gpu
+  devices: [6,7,8,9]  # Specify the exact GPU indices 
+  default_root_dir: "output" #output 폴더에 결과 자동으로 추가.
+  # strategy : "ddp" 
+
+callbacks:
+  model_checkpoint:
+    monitor: val_acc
+    save_top_k: 3
+    mode: max
+  early_stopping:
+    monitor: val_acc
+    patience: 10
+    mode: max
+
+wandb_name: "moe_experiment"
+
+# Attention 시각화 설정 추가
+visualize_attention: True
+attention:
+  input_image_dir: "data/train"
+  output_image_dir: "output/Transformer"
+  layer_index: 23
+  head_index: 7
