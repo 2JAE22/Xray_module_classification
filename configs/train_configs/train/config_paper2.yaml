@@ -45,7 +45,7 @@ callbacks:
     patience: 20
     mode: max
 
-wandb_name: "moe_experiment"
+wandb_name: "moe_experiment2"
 
 # Attention 시각화 설정 추가
 visualize_attention: True

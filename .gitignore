@@ -2,4 +2,4 @@ data/*
 output/*
 wandb/*
 Xray/*
-**/__pycache__/**
+**/__pycache__/
