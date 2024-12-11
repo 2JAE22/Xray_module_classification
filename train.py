@@ -91,9 +91,8 @@ def main(config_path, use_wandb=False, sweep_dict=None):
         callbacks=[checkpoint_callback, early_stopping_callback],
         logger=logger,
         precision='16-mixed',
-        strategy=DDPStrategy(find_unused_parameters=True),  # 미사용 파라미터 허용
-
-                
+        # strategy=DDPStrategy(find_unused_parameters=True),  # 미사용 파라미터 허용
+        strategy="ddp"
     )
     # print("Start Training!!")
 
