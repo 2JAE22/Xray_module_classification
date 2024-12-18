@@ -1,5 +1,3 @@
-# 내일까지 
-기본모델 적용하는거 적용
-기본 모델은 Deeplabv3로 해야 겠다. 그나마 최신 모델로
+# 모델 아키텍쳐
+![image](https://github.com/user-attachments/assets/9ac410a9-c504-4e13-88ba-91d1d27aee78)
 
-# 다음주월요일부터는
